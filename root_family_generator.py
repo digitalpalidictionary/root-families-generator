@@ -8,8 +8,8 @@ import pandas as pd
 logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%I:%M:%S')
 
 #import dpd csv as dataframe
-logging.warning(f"opening Pāli English Dictionary.csv as data frame")
-csv_file = "/home/bhikkhu/Bodhirasa/Dropbox/Pāli English Dictionary/Pāli English Dictionary.csv"
+logging.warning(f"opening dpd.csv as data frame")
+csv_file = "/home/bhikkhu/Bodhirasa/Dropbox/dpd/dpd.csv"
 df = pd.read_csv (csv_file, sep="\t")
 
 #combine meaning and buddhadatta columns
