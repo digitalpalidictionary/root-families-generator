@@ -1,144 +1,102 @@
-# make a list of all roots + sign + meaning
-# make a list of all root families
+#!/usr/bin/env python3.10
+# coding: utf-8
 
-# make a list of all the copound families
-# sort the list alphebetically
+import logging
+import pandas as pd
 
-# alternative method:
-# work directly on the xlxs
-# remove all rows without family
-# sort by root > number > meaning > family > headword
-# delete unused columns
-# save as csv
+#setup logger
+logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%I:%M:%S')
 
-# ignore help etc "does not contain √"
+#import dpd csv as dataframe
+logging.warning(f"opening Pāli English Dictionary.csv as data frame")
+csv_file = "/home/bhikkhu/Bodhirasa/Dropbox/Pāli English Dictionary/Pāli English Dictionary.csv"
+df = pd.read_csv (csv_file, sep="\t")
 
-import csv
-# from os import close, name
-import openpyxl as xl
-import re
-from xlsxwriter.workbook import Workbook
-
-# csv_to_excel
-print("converting csv to excel")
-
-csv_file = "/home/bhikkhu/Bodhirasa/Dropbox/Pāli English Dictionary/Pāli English Dictionary-full.csv"
-xlsx_file = "Pāli English Dictionary-full.xlsx"
-
-workbook = Workbook(xlsx_file)
-worksheet = workbook.add_worksheet()
-
-csv_reader = csv.reader(open(csv_file,'rt'),delimiter="\t")
-
-for row, data in enumerate(csv_reader):
-    worksheet.write_row(row, 0, data)
-
-workbook.close()
-
-# open excel sheet
-print("loading excel sheet")
-
-wb = xl.load_workbook("Pāli English Dictionary-full.xlsx")
-sheet = wb["Sheet1"]
-last_row = sheet.max_row + 1
-row_number = 2
-root_famiy_list = []
+#combine meaning and buddhadatta columns
+df.loc[df["Meaning IN CONTEXT"].isnull(), "Meaning IN CONTEXT"] = "*" + df["Buddhadatta"]
 
 # extract root families
-print("extracting root family names")
+logging.warning("extracting root family names")
 
-for row in range(row_number, last_row):
-    family_cell = sheet.cell(row, 25)
-    if family_cell.value != None:
-        root_famiy_list.append(family_cell.value)
-
-root_famiy_list.sort()
-root_famiy_list = list(dict.fromkeys(root_famiy_list))
+root_family_list = df[~df["Family"].isnull()]
+root_family_list = root_family_list[~root_family_list["Pāli1"].str.contains("Help", "Abbreviations")]
+root_family_list = root_family_list[["Pāli Root", "Grp", "Root Meaning", "Family"]]
+root_family_list = root_family_list.drop_duplicates(subset=["Pāli Root", "Grp", "Root Meaning", "Family"])
+root_family_list.sort_values(["Pāli Root", "Grp", "Root Meaning", "Family"], ascending = (True, True, True, True), inplace=True)
+root_family_list = root_family_list.reset_index(drop=True)
 
 # write families
-print("writing families")
+logging.warning(f"writing root_families_list.csv")
+root_family_list.to_csv("root_families_list.csv", sep="\t")
 
-line_break = ("~" * 40)
-print(line_break)
+# row count
+root_families_count = root_family_list.shape[0]
+logging.warning(f"root_families_count = {root_families_count}")
 
-txt_file = open ("root_families.csv", 'w', encoding= "'utf-8")
-txt_file.write (f"root families\n")
+yn = input("for (s)tudents of (d)pd? ")
+if yn == "s":
 
-family_count = 0
+    #writing root_families_study.csv
+    logging.warning ("writing root_families_study.csv")
+    txt_file = open ("root_families_study.csv", 'w', encoding= "'utf-8")
+    txt_file.write(f"Family\tGrp\tRoot Meaning\tPāli\tConstruction\tPOS\tMeaning\n")
 
-for family in root_famiy_list:
-    txt_file.write (f"\n")
-    txt_file.write (f"{family}\n")
-    
-    for row in range(2, last_row):
-        family_cell = sheet.cell(row, 25)
-        headword = sheet.cell(row, 1)
-        pos = sheet.cell(row, 4)
-        meaning = sheet.cell(row, 11)
-        buddhadatta = sheet.cell(row, 50)
-        if family_cell.value == family:
-            txt_file.write (f"{headword.value}\t{pos.value}\t{meaning.value}\t{buddhadatta.value}\n")
-            family_count += 1
-            print(f"{family_count}. {family}")
-        else:
-            continue
+    logging.warning ("~" *40)
+    row =0
 
-print(f"{family_count} familes")
-print(f"saved to {txt_file.name}")
-print("fin")
+    for row in range (0, root_families_count):
+        root = root_family_list.iloc[row, 0]
+        root_group = (root_family_list.iloc[row, 1]).astype(int)
+        root_meaning = root_family_list.iloc[row, 2]
+        root_family = root_family_list.iloc[row, 3]
+
+        if row % 100 == 0:
+            logging.warning (f"{row} {root} {root_group} {root_meaning} {root_family}")
+
+        test1 = ~df["Pāli Root"].isnull()
+        test2 = df["Pāli Root"] == (root)
+        test3 = df["Grp"] == (root_group).astype(int)
+        test4 = df["Root Meaning"] == (root_meaning)
+        test5 = df["Family"] == (root_family)
+
+        filter = test1 & test2 & test3 & test4 & test5
+        filtered_df = df.loc[filter, ["Family", "Grp", "Root Meaning", "Pāli1", "Construction", "POS", "Meaning IN CONTEXT"]]
+
+        with open("root_families_study.csv", 'a') as txt_file:
+            txt_file.write (f"~~~~~~~~~~\n")
+            # txt_file.write (f"{root_family}\n")
+            filtered_df.to_csv(txt_file, header=False, index=False, sep="\t")
+
+if yn == "d":
+    #writing root_families_dpd.csv
+    logging.warning ("writing root_families_dpd.csv")
+    txt_file = open ("root_families_dpd.csv", 'w', encoding= "'utf-8")
+
+    logging.warning ("~" *40)
+    row =0
+
+    for row in range (0, root_families_count):
+        root = root_family_list.iloc[row, 0]
+        root_group = (root_family_list.iloc[row, 1]).astype(int)
+        root_meaning = root_family_list.iloc[row, 2]
+        root_family = root_family_list.iloc[row, 3]
+
+        if row % 100 == 0:
+            logging.warning (f"{row} {root} {root_group} {root_meaning} {root_family}")
+        
+        test1 = ~df["Pāli Root"].isnull()
+        test2 = df["Pāli Root"] == (root)
+        test3 = df["Grp"] == (root_group).astype(int)
+        test4 = df["Root Meaning"] == (root_meaning)
+        test5 = df["Family"] == (root_family)
+
+        filter = test1 & test2 & test3 & test4 & test5
+        filtered_df = df.loc[filter, ["Pāli1", "POS", "Meaning IN CONTEXT"]]
+
+        with open("root_families_dpd.csv", 'a') as txt_file:
+            txt_file.write(f"{root_family}\t({root} {root_group} {root_meaning})\n")
+            filtered_df.to_csv(txt_file, header=False, index=False, sep="\t")
+            txt_file.write(f"\n")
 
 
-# 1	Pāli1
-# 2	Pāli2
-# 3	Fin
-# 4	POS
-# 5	Grammar
-# 6	Derived from
-# 7	Neg
-# 8	Verb
-# 9	Trans
-# 10	Case
-# 11	Meaning IN CONTEXT
-# 12	Literal Meaning
-# 13	Non IA
-# 14	Sanskrit
-# 15	Sk Root
-# 16	Sk Root Mn
-# 17	Cl
-# 18	Pāli Root
-# 19	Root In Comps
-# 20	V
-# 21	Grp
-# 22	Sgn
-# 23	Root Meaning
-# 24	Base
-# 25	Family
-# 26	Family2
-# 27	Construction
-# 28	Derivative
-# 29	Suffix
-# 30	Phonetic Changes
-# 31	Compound
-# 32	Compound Construction
-# 33	Non-Root In Comps
-# 34	Source1
-# 35	Sutta1
-# 36	Example1
-# 37	Source 2
-# 38	Sutta2
-# 39	Example 2
-# 40	Antonyms
-# 41	Synonyms – different word
-# 42	Variant – same constr or diff reading
-# 43	Commentary
-# 44	Notes
-# 45	Cognate
-# 46	Category
-# 47	Link
-# 48	Stem
-# 49	Pattern
-# 50	Buddhadatta
-# 51	22
-# 52	Pāli1 ≠ const
-# 53	test dupl
-# 54	Metadata
+logging.warning(f"fin")
