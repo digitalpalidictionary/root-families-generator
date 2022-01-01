@@ -3,3 +3,10 @@ examples/families examples.ods
 examples/mettā.pdf
 csvs/root families list.csv
 csvs/root families for study.csv
+bases/
+families/
+html output/
+subfamilies/
+subfamily html/
+errorlog.txt
+root families generator dpd.nbconvert.ipynb
