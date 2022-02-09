@@ -292,6 +292,7 @@ def generate_root_families_csv_for_anki():
 
 	print("~"*40)
 	print("generating root families csv for anki")
+	print("~"*40)
 
 	#combine meaning and buddhadatta columns
     
@@ -311,7 +312,7 @@ def generate_root_families_csv_for_anki():
 		root_family = root_families_df.iloc[row, 3]
 		
 		if row % 500 == 0:
-			print(f"{row} {root} {root_group} {root_meaning} {root_family}")
+			print(f"{row}/{root_families_df_count}\t{root} {root_group} {root_meaning} {root_family}")
         
 		test1 = ~anki_df["Pāli Root"].isnull()
 		test2 = anki_df["Pāli Root"] == (root)
@@ -320,8 +321,6 @@ def generate_root_families_csv_for_anki():
 		test5 = anki_df["Family"] == (root_family)
 		filter = test1 & test2 & test3 & test4 & test5
 		filtered_df = anki_df.loc[filter, ["Pāli1", "POS", "Meaning IN CONTEXT", "Construction"]]
-
-        # filtered_df['Pāli1'] = "<tr valign='top'><div style='color: #FFB380'><td>" + df['Pāli1']
 
 		with open("/home/bhikkhu/Bodhirasa/Dropbox/dpd/csvs for anki/root families.csv", 'a') as txt_file:
 			txt_file.write(f"<b>{root_family}</b> {root_group} ({root_meaning})\t")
@@ -342,9 +341,9 @@ def generate_root_families_csv_for_anki():
 setup_roots_df()
 setup_dpd_df()
 setup_root_families_df()
-generate_root_subfamily_html()
-extract_bases()
-generate_root_families_csvs()
-generate_root_info_html()
+# generate_root_subfamily_html()
+# extract_bases()
+# generate_root_families_csvs()
+# generate_root_info_html()
 generate_root_families_csv_for_anki()
 

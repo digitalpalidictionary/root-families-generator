@@ -1,9 +1,8 @@
-examples/āsava.pdf
-examples/families examples.ods
-examples/mettā.pdf
-csvs/root families list.csv
-csvs/root families for study.csv
+examples/
+csvs/
+
 errorlog.txt
-root families generator dpd.nbconvert.ipynb
-root families generator dpd.py
-output
+
+output/
+ipynb/
+
