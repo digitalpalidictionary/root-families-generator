@@ -18,7 +18,7 @@ def sort_key(word):
         "c", "ch", "j", "jh", "ñ", "ṭ", "ṭh", "ḍ", "ḍḥ", "ṇ", "t", "th", "d",
         "dh", "n", "p", "ph", "b", "bh", "m", "y", "r", "l", "s", "v", "h",
         "ḷ", "ṃ", " ", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"
-    ]
+	]
 
     #comp iteration condition
     dl = [i for i in pāli_alphabet if len(i) > 1]
@@ -43,6 +43,7 @@ def sort_key(word):
     return [pāli_alphabet_string.find('-' + x + '-') for x in wordVe]
 
 def setup_roots_df():
+
 	global roots_df
 	global roots_df_count
 
@@ -59,6 +60,7 @@ def setup_roots_df():
 
 
 def setup_dpd_df():
+
 	global dpd_df
 
 	dpd_df = pd.read_csv("../csvs/dpd-full.csv", sep="\t", dtype=str)
@@ -66,6 +68,7 @@ def setup_dpd_df():
 	dpd_df.loc[dpd_df["Meaning IN CONTEXT"] == "", "Meaning IN CONTEXT"] = dpd_df["Buddhadatta"] + "*"
 
 def setup_root_families_df():
+
 	global root_families_df
 	global root_families_df_count
 	 
@@ -104,11 +107,9 @@ def generate_root_subfamily_html():
 		test4 = dpd_df["Family"] == subfamily
 		filter = test1 & test2 & test3 & test4
 		subfamily_df = dpd_df.loc[filter, ["Pāli1", "POS", "Meaning IN CONTEXT"]]
-
 		subfamily_df_length = subfamily_df.shape[0]
 
 		html_string = ""
-
 		html_string += """<tbody>"""
 			
 		for row_sf in range(subfamily_df_length):
@@ -132,7 +133,6 @@ def extract_bases():
 	print("~"*40)
 
 	bases_df = dpd_df
-
 	bases_dict = {}
 
 	for row in range(roots_df_count):
@@ -144,7 +144,6 @@ def extract_bases():
 		test2 = bases_df["Grp"] == root_group
 		test3 = bases_df["Root Meaning"] == root_meaning
 		test4 = bases_df["Base"].str.contains(fr">")
-
 		filter = test1 & test2 & test3 & test4
 		bases_filtered = bases_df.loc[filter, ["Base"]]
 
@@ -167,7 +166,6 @@ def extract_bases():
 				bases_filtered.to_csv(output_file, header=False, index=False, sep="\t")
 
 def generate_root_families_csvs():
-
 
 	root_families_df = dpd_df
 
@@ -244,19 +242,18 @@ def generate_root_info_html():
 		if str(root_group) == "8":
 			root_group_pali = "curādigaṇa"
 
-
 		html_string = ""
 		html_string += f"""<tbody>"""
 		html_string += f"""<tr><th>pāli root:</th><td>{root}<sup>{root_has_verb}</sup>{root_group} {root_group_pali} +{root_sign} ({root_meaning})</td></tr>"""
 		html_string += f"""<tr><th>base(s):</th><td>{base}</td></tr>"""
 
-	# Root in comps
+		# Root in comps
 		if root_in_comps != "":
 			html_string += f"""<tr><th>in compounds:</th><td>{root_in_comps}</td></tr>"""
 		else:
 			pass
 
-	# Dhātupātha
+		# Dhātupātha
 		if dhp_root != "-":
 			html_string += f"""<tr><th>dhātupātha:</th><td>{dhp_root} <i>{dhp_meaning}</i> ({dhp_english}) #{dhp_no}</td></tr>"""
 		else:
@@ -341,9 +338,9 @@ def generate_root_families_csv_for_anki():
 setup_roots_df()
 setup_dpd_df()
 setup_root_families_df()
-# generate_root_subfamily_html()
-# extract_bases()
-# generate_root_families_csvs()
-# generate_root_info_html()
+generate_root_subfamily_html()
+extract_bases()
+generate_root_families_csvs()
+generate_root_info_html()
 generate_root_families_csv_for_anki()
 
