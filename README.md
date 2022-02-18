@@ -1,5 +1,4 @@
 # root families generator
-generate lists of words according to root family
+generate lists of words according to root family (same prefix + root)
 
-
-![2022-02-09_22-49](https://user-images.githubusercontent.com/64521731/153254658-226236fd-1dac-4093-b6cd-2bfa25406e50.png)
+![2022-02-18_09-47](https://user-images.githubusercontent.com/64521731/154616612-3ddd5b05-d208-424a-9350-b9d087042e1a.png)
