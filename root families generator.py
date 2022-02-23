@@ -319,7 +319,7 @@ def generate_root_families_csv_for_anki():
 		filter = test1 & test2 & test3 & test4 & test5
 		filtered_df = anki_df.loc[filter, ["Pāli1", "POS", "Meaning IN CONTEXT", "Construction"]]
 
-		with open("/home/bhikkhu/Bodhirasa/Dropbox/dpd/csvs for anki/root families.csv", 'a') as txt_file:
+		with open("../csvs for anki/root families.csv", 'a') as txt_file:
 			txt_file.write(f"<b>{root_family}</b> {root_group} ({root_meaning})\t")
 			txt_file.write(f"<table><tbody>")
 			for row in range(filtered_df.shape[0]):
