@@ -106,7 +106,7 @@ def generate_root_subfamily_html():
 		test3 = dpd_df["Root Meaning"] == root_meaning
 		test4 = dpd_df["Family"] == subfamily
 		filter = test1 & test2 & test3 & test4
-		subfamily_df = dpd_df.loc[filter, ["Pāli1", "POS", "Meaning IN CONTEXT"]]
+		subfamily_df = dpd_df.loc[filter, ["Pāli1", "POS", "Meaning IN CONTEXT", "Literal Meaning"]]
 		subfamily_df_length = subfamily_df.shape[0]
 
 		html_string = ""
@@ -116,11 +116,17 @@ def generate_root_subfamily_html():
 			sf_pali = subfamily_df.iloc[row_sf, 0]
 			sf_pos = subfamily_df.iloc[row_sf, 1]
 			sf_english = subfamily_df.iloc[row_sf, 2]
+			sf_literal = subfamily_df.iloc[row_sf, 3]
 
 			html_string += f"<tr><th>{sf_pali}</th>"
 			html_string += f"<td>{sf_pos}</td>"
-			html_string += f"<td>{sf_english}</td></tr>"
-		
+			html_string += f"<td>{sf_english}"
+			
+			if sf_literal == "":
+				html_string +=  f"</td></tr>"
+			if sf_literal != "":
+				html_string += f"; lit. {sf_literal}</td></tr>"
+
 		html_string += f"""</tbody>"""
 
 		with open(f"output/subfamily html/{root} {root_group} {root_meaning} {subfamily}.html", "w") as output_file:
