@@ -5,6 +5,26 @@ import pandas as pd
 import re
 from datetime import date
 import warnings
+from datetime import datetime
+
+def timeis():
+	global blue
+	global yellow
+	global green
+	global red
+	global white
+
+	blue = "\033[38;5;33m" #blue
+	green = "\033[38;5;34m" #green
+	red= "\033[38;5;160m" #red
+	yellow = "\033[38;5;220m" #yellow
+	white = "\033[38;5;251m" #white
+	now = datetime.now()
+	current_time = now.strftime("%Y-%m-%d %H:%M:%S")
+	return (f"{blue}{current_time}{white}")
+
+print(f"{timeis()} {yellow}root families generator")
+print(f"{timeis()} ----------------------------------------")
 
 today = date.today()
 date = today.strftime("%d")
@@ -43,6 +63,7 @@ def sort_key(word):
     return [pāli_alphabet_string.find('-' + x + '-') for x in wordVe]
 
 def setup_roots_df():
+	print(f"{timeis()} {green}setting up roots dataframe") 
 
 	global roots_df
 	global roots_df_count
@@ -60,6 +81,7 @@ def setup_roots_df():
 
 
 def setup_dpd_df():
+	print(f"{timeis()} {green}setting up dpd dataframe") 
 
 	global dpd_df
 
@@ -68,6 +90,7 @@ def setup_dpd_df():
 	dpd_df.loc[dpd_df["Meaning IN CONTEXT"] == "", "Meaning IN CONTEXT"] = dpd_df["Buddhadatta"] + "*"
 
 def setup_root_families_df():
+	print(f"{timeis()} {green}setting up root families dataframe") 
 
 	global root_families_df
 	global root_families_df_count
@@ -85,10 +108,7 @@ def setup_root_families_df():
 	root_families_df_count = root_families_df.shape[0]
 
 def generate_root_subfamily_html():
-
-	print("~"*40)
-	print("generating html for each root subfamily")
-	print("~"*40)
+	print(f"{timeis()} {green}generating html for each root subfamily")
 
 	for row in range(root_families_df_count):
 
@@ -98,7 +118,7 @@ def generate_root_subfamily_html():
 		subfamily = root_families_df.loc[row, "Family"]
 
 		if row % 500 == 0 or row /  root_families_df_count == 1:
-			print(f"{row}/{root_families_df_count}\t{subfamily} {root_group} {root_meaning}")
+			print(f"{timeis()} {row}/{root_families_df_count}\t{subfamily} {root_group} {root_meaning}")
 
 		# dpd_df.columns
 		test1 = dpd_df["Pāli Root"] == root
@@ -134,9 +154,7 @@ def generate_root_subfamily_html():
 
 def extract_bases():
 
-	print("~"*40)
-	print("extracting bases")
-	print("~"*40)
+	print(f"{timeis()} {green}extracting bases")
 
 	bases_df = dpd_df
 	bases_dict = {}
@@ -161,7 +179,7 @@ def extract_bases():
 		bases_filtered_size = bases_filtered.shape[0]
 
 		if row % 100 == 0:
-			print(f"{row}/{roots_df_count}\t{root} {root_group} {root_meaning}")
+			print(f"{timeis()} {row}/{roots_df_count}\t{root} {root_group} {root_meaning}")
 
 		with open(f"output/bases/{root} {root_group} {root_meaning}.csv", "w") as output_file:
 			bases_filtered_size = bases_filtered.shape[0]
@@ -172,6 +190,7 @@ def extract_bases():
 				bases_filtered.to_csv(output_file, header=False, index=False, sep="\t")
 
 def generate_root_families_csvs():
+	print(f"{timeis()} {green}generating root families csvs")
 
 	root_families_df = dpd_df
 
@@ -194,8 +213,7 @@ def generate_root_families_csvs():
 
 def generate_root_info_html():
 
-	print("~"*40)
-	print("writing root info")
+	print(f"{timeis()} {green}writing root info")
 
 	for row in range(roots_df_count):
 		root = roots_df.iloc[row, 2]
@@ -293,9 +311,7 @@ def generate_root_info_html():
 
 def generate_root_families_csv_for_anki():
 
-	print("~"*40)
-	print("generating root families csv for anki")
-	print("~"*40)
+	print(f"{timeis()} {green}generating root families csv for anki")
 
 	#combine meaning and buddhadatta columns
     
@@ -315,7 +331,7 @@ def generate_root_families_csv_for_anki():
 		root_family = root_families_df.iloc[row, 3]
 		
 		if row % 500 == 0:
-			print(f"{row}/{root_families_df_count}\t{root} {root_group} {root_meaning} {root_family}")
+			print(f"{timeis()} {row}/{root_families_df_count}\t{root} {root_group} {root_meaning} {root_family}")
         
 		test1 = ~anki_df["Pāli Root"].isnull()
 		test2 = anki_df["Pāli Root"] == (root)
@@ -334,7 +350,6 @@ def generate_root_families_csv_for_anki():
 				meaning = filtered_df.iloc[row, 2]
 				construction = filtered_df.iloc[row, 3]
 				construction = re.sub(f"<br/>.+",  "", construction) #remove 2nd line
-				# print (f"***{construction}")
 				txt_file.write(f"<tr valign='top'><div style='color: #FFB380'><td>{pāli}</td><td><div style='color: #FF6600'>{pos}</div></td><td><div style='color: #FFB380'>{meaning}</td><td><div style='color: #AA4400'>{construction}</div></td></tr>")
 			txt_file.write(f"</tbody></table>")
 			txt_file.write(f"\t{date}")
@@ -350,3 +365,4 @@ generate_root_families_csvs()
 generate_root_info_html()
 generate_root_families_csv_for_anki()
 
+print(f"{timeis()} ----------------------------------------")
