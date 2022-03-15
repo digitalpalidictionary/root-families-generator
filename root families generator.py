@@ -268,41 +268,41 @@ def generate_root_info_html():
 
 		html_string = ""
 		html_string += f"""<tbody>"""
-		html_string += f"""<tr><th>pāli root:</th><td>{root}<sup>{root_has_verb}</sup>{root_group} {root_group_pali} +{root_sign} ({root_meaning})</td></tr>"""
-		html_string += f"""<tr><th>base(s):</th><td>{base}</td></tr>"""
+		html_string += f"""<tr><th>Pāḷi Root:</th><td>{root}<sup>{root_has_verb}</sup>{root_group} {root_group_pali} +{root_sign} ({root_meaning})</td></tr>"""
+		html_string += f"""<tr><th>Base(s):</th><td>{base}</td></tr>"""
 
 		# Root in comps
 		if root_in_comps != "":
-			html_string += f"""<tr><th>in compounds:</th><td>{root_in_comps}</td></tr>"""
+			html_string += f"""<tr><th>Root in Compounds:</th><td>{root_in_comps}</td></tr>"""
 		else:
 			pass
 
 		# Dhātupātha
 		if dhp_root != "-":
-			html_string += f"""<tr><th>dhātupātha:</th><td>{dhp_root} <i>{dhp_meaning}</i> ({dhp_english}) #{dhp_no}</td></tr>"""
+			html_string += f"""<tr><th>Dhātupātha:</th><td>{dhp_root} <i>{dhp_meaning}</i> ({dhp_english}) #{dhp_no}</td></tr>"""
 		else:
-			html_string += f"""<tr><th>dhātupātha:</th><td>-</td></tr>"""
+			html_string += f"""<tr><th>Dhātupātha:</th><td>-</td></tr>"""
 
 		# Dhātumañjūsa
 		if dhm_root != "-":
-			html_string += f"""<tr><th>dhātumañjūsa:</th><td>{dhm_root} <i>{dhm_meaning}</i> ({dhm_english}) #{dhm_no}</td></tr>"""
+			html_string += f"""<tr><th>Dhātumañjūsa:</th><td>{dhm_root} <i>{dhm_meaning}</i> ({dhm_english}) #{dhm_no}</td></tr>"""
 		else:
-			html_string += f"""<tr><th>dhātumañjūsa:</th><td>-</td></tr>"""
+			html_string += f"""<tr><th>Dhātumañjūsa:</th><td>-</td></tr>"""
 
 		# Saddanīti
 		if sdn_root != "-":
-			html_string += f"""<tr><th>saddanīti:</th><td>{sdn_root} <i>{sdn_meaning}</i> ({sdn_english})</td></tr>"""
+			html_string += f"""<tr><th>Saddanīti:</th><td>{sdn_root} <i>{sdn_meaning}</i> ({sdn_english})</td></tr>"""
 		else:
-			html_string += f"""<tr><th>saddanīti:</th><td>-</td></tr>"""
+			html_string += f"""<tr><th>Saddanīti:</th><td>-</td></tr>"""
 
 		# Sanskrit
-		html_string += f"""<tr><th>sanskrit root:</th><td style = 'color:gray'>{sk_root} {sk_root_class} ({sk_root_meaning})</td></tr>"""
+		html_string += f"""<tr><th>Sanskrit Root:</th><td style = 'color:gray'>{sk_root} {sk_root_class} ({sk_root_meaning})</td></tr>"""
 
 		# Pāṇinīya Dhātupāṭha
 		if pdp_root != "-":
-			html_string += f"""<tr><th>pāṇinīya dhātupāṭha:</th><td style = 'color:gray'>{pdp_root} <i>{pdp_meaning}</i> ({pdp_english})</td></tr>"""
+			html_string += f"""<tr><th>Pāṇinīya Dhātupāṭha:</th><td style = 'color:gray'>{pdp_root} <i>{pdp_meaning}</i> ({pdp_english})</td></tr>"""
 		else:
-			html_string += f"""<tr><th>pāṇinīya dhātupāṭha:</th><td>-</td></tr>"""
+			html_string += f"""<tr><th>Pāṇinīya Dhātupāṭha:</th><td>-</td></tr>"""
 
 		html_string += f"""</tbody>"""
 
