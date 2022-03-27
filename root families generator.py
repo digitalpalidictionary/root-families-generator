@@ -6,6 +6,7 @@ import re
 from datetime import date
 import warnings
 from datetime import datetime
+import os
 
 def timeis():
 	global blue
@@ -104,11 +105,13 @@ def setup_root_families_df():
 	root_families_df.sort_values(["Pāli Root", "Grp", "Root Meaning", "Family"], ascending = (True, True, True, True), inplace=True)
 	root_families_df.sort_values(by = ["Family"], inplace=True, ignore_index=True, key=lambda x: x.map(sort_key)) #sort
 	root_families_df = root_families_df.reset_index(drop=True)
-
 	root_families_df_count = root_families_df.shape[0]
+
 
 def generate_root_subfamily_html():
 	print(f"{timeis()} {green}generating html for each root subfamily")
+	global subfamily_list
+	subfamily_list = []
 
 	for row in range(root_families_df_count):
 
@@ -151,13 +154,16 @@ def generate_root_subfamily_html():
 
 		with open(f"output/subfamily html/{root} {root_group} {root_meaning} {subfamily}.html", "w") as output_file:
 			output_file.write(html_string)
+		subfamily_string = root + " " + root_group + " " + root_meaning + " " + subfamily + ".html"
+		subfamily_list.append(subfamily_string)
+		
 
 def extract_bases():
 
 	print(f"{timeis()} {green}extracting bases")
-
+	global bases_list
 	bases_df = dpd_df
-	bases_dict = {}
+	bases_list = []
 
 	for row in range(roots_df_count):
 		root = roots_df.iloc[row, 2]
@@ -189,8 +195,14 @@ def extract_bases():
 			if bases_filtered_size > 0:
 				bases_filtered.to_csv(output_file, header=False, index=False, sep="\t")
 
+		bases_string = root + " " + root_group + " " + root_meaning + ".csv"
+		bases_list.append(bases_string)
+
+
 def generate_root_families_csvs():
 	print(f"{timeis()} {green}generating root families csvs")
+	global root_family_csv_list
+	root_family_csv_list = []
 
 	root_families_df = dpd_df
 
@@ -210,11 +222,15 @@ def generate_root_families_csvs():
 
 		with open(f"output/families/{root} {root_group} {root_meaning}.csv", "w") as output_file:
 			root_families_filtered.to_csv(output_file, header=False, index=False, sep="\t")
+		root_family_csv_string = root + " " + root_group + " " + root_meaning + ".csv"
+		root_family_csv_list.append(root_family_csv_string)
 
 def generate_root_info_html():
 
 	print(f"{timeis()} {green}writing root info")
-
+	global root_families_list
+	root_families_list = []
+	
 	for row in range(roots_df_count):
 		root = roots_df.iloc[row, 2]
 		root_in_comps = roots_df.iloc[row, 3]
@@ -308,6 +324,8 @@ def generate_root_info_html():
 
 		with open(f"output/root info/{root} {root_group} {root_meaning}.html", "w") as output_file:
 			output_file.write(html_string)
+		root_families_string = root + " " + root_group + " " + root_meaning + ".html"
+		root_families_list.append(root_families_string)
 
 def generate_root_families_csv_for_anki():
 
@@ -316,13 +334,13 @@ def generate_root_families_csv_for_anki():
 	#combine meaning and buddhadatta columns
     
 	anki_df = dpd_df
-	
 	anki_df["Buddhadatta"] = anki_df["Buddhadatta"].str.replace("(.+)", "<div style='color: #AA4400'>\\1<div>")
 	anki_df.loc[anki_df["Meaning IN CONTEXT"].isnull(), "Meaning IN CONTEXT"] = anki_df["Buddhadatta"]
 	anki_df["Construction"] = anki_df["Construction"].str.replace("(.+)\n.+", "\\1")
 
     #writing root families for anki.csv
-	txt_file = open ("../csvs for anki/root families.csv", 'w', encoding= "'utf-8")
+	anki_file = open ("../csvs for anki/root families.csv", 'w', encoding= "'utf-8")
+	csv_file = open ("output/root families.csv", 'w', encoding= "'utf-8")
 
 	for row in range (0, root_families_df_count):
 		root = root_families_df.iloc[row, 0]
@@ -339,21 +357,82 @@ def generate_root_families_csv_for_anki():
 		test4 = anki_df["Root Meaning"] == (root_meaning)
 		test5 = anki_df["Family"] == (root_family)
 		filter = test1 & test2 & test3 & test4 & test5
-		filtered_df = anki_df.loc[filter, ["Pāli1", "POS", "Meaning IN CONTEXT", "Construction"]]
+		filtered_df = anki_df.loc[filter, ["Pāli1", "POS", "Meaning IN CONTEXT", "Literal Meaning", "Construction"]]
 
-		with open("../csvs for anki/root families.csv", 'a') as txt_file:
-			txt_file.write(f"<b>{root_family}</b> {root_group} ({root_meaning})\t")
-			txt_file.write(f"<table><tbody>")
-			for row in range(filtered_df.shape[0]):
-				pāli = filtered_df.iloc[row, 0]
-				pos = filtered_df.iloc[row, 1]
-				meaning = filtered_df.iloc[row, 2]
-				construction = filtered_df.iloc[row, 3]
-				construction = re.sub(f"<br/>.+",  "", construction) #remove 2nd line
-				txt_file.write(f"<tr valign='top'><div style='color: #FFB380'><td>{pāli}</td><td><div style='color: #FF6600'>{pos}</div></td><td><div style='color: #FFB380'>{meaning}</td><td><div style='color: #AA4400'>{construction}</div></td></tr>")
-			txt_file.write(f"</tbody></table>")
-			txt_file.write(f"\t{date}")
-			txt_file.write(f"\n")
+		csv_file = open ("output/root families.csv", 'a', encoding= "'utf-8")
+		anki_file = open("../csvs for anki/root families.csv", 'a')
+		anki_file.write(f"<b>{root_family}</b> {root_group} ({root_meaning})\t")
+		anki_file.write(f"<table><tbody>")
+
+		for row in range(filtered_df.shape[0]):
+			pāli = filtered_df.iloc[row, 0]
+			pos = filtered_df.iloc[row, 1]
+			meaning = filtered_df.iloc[row, 2]
+			literal = filtered_df.iloc[row, 3]
+			construction = filtered_df.iloc[row, 4]
+			construction = re.sub(f"<br/>.+",  "", construction) #remove 2nd line
+			anki_file.write(f"<tr valign='top'><div style='color: #FFB380'><td>{pāli}</td><td><div style='color: #FF6600'>{pos}</div></td><td><div style='color: #FFB380'>{meaning}</td><td><div style='color: #AA4400'>{construction}</div></td></tr>")
+			csv_file.write(f"{root_family}\t{root_group}\t{root_meaning}\t{pāli}\t{pos}\t{meaning}")
+			if literal == "":
+				csv_file.write(f"\t{construction}\n")
+			elif literal != "":
+				csv_file.write(f"; lit. {literal}\t{construction}\n")
+
+		anki_file.write(f"</tbody></table>")
+		anki_file.write(f"\t{date}")
+		anki_file.write(f"\n")
+		csv_file.write(f"\n")
+
+	anki_file.close()
+	csv_file.close()
+
+def delete_unused_subfamily_files():
+	print(f"{timeis()} {green}deleting unused subfamily files")
+	
+	for root, dirs, files in os.walk("output/subfamily html/", topdown=True):
+		for file in files:
+			try:
+				if file not in subfamily_list:
+					os.remove(f"output/subfamily html/{file}")
+					print(f"{timeis()} {file}")
+			except:
+				print(f"{timeis()} {red}{file} not found")
+
+def delete_unused_root_info_files():
+	print(f"{timeis()} {green}deleting unused root info files")
+	
+	for root, dirs, files in os.walk("output/root info/", topdown=True):
+		for file in files:
+			try:
+				if file not in root_families_list:
+					os.remove(f"output/root info/{file}")
+					print(f"{timeis()} {file}")
+			except:
+				print(f"{timeis()} {red}{file} not found")
+
+def delete_unused_root_family_csv_files():
+	print(f"{timeis()} {green}deleting unused root family csv files")
+	
+	for root, dirs, files in os.walk("output/families/", topdown=True):
+		for file in files:
+			try:
+				if file not in root_family_csv_list:
+					os.remove(f"output/families/{file}")
+					print(f"{timeis()} {file}")
+			except:
+				print(f"{timeis()} {red}{file} not found")
+
+def delete_unused_bases():
+	print(f"{timeis()} {green}deleting unused bases")
+	
+	for root, dirs, files in os.walk("output/bases/", topdown=True):
+		for file in files:
+			try:
+				if file not in bases_list:
+					os.remove(f"output/bases/{file}")
+					print(f"{timeis()} {file}")
+			except:
+				print(f"{timeis()} {red}{file} not found")
 
 
 setup_roots_df()
@@ -364,5 +443,9 @@ extract_bases()
 generate_root_families_csvs()
 generate_root_info_html()
 generate_root_families_csv_for_anki()
+delete_unused_subfamily_files()
+delete_unused_root_info_files()
+delete_unused_root_family_csv_files()
+delete_unused_bases()
 
 print(f"{timeis()} ----------------------------------------")
