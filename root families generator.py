@@ -97,9 +97,8 @@ def setup_root_families_df():
 	global root_families_df_count
 	 
 	test1 = dpd_df["Family"] != ""
-	test2 = dpd_df["Metadata"] == ""
-	filter = test1 & test2
-	root_families_df = dpd_df.loc[filter, ["Pāli Root", "Grp", "Root Meaning", "Family"]]
+	root_families_df = dpd_df.loc[test1, [
+		"Pāli Root", "Grp", "Root Meaning", "Family"]]
 
 	root_families_df = root_families_df.drop_duplicates(subset=["Pāli Root", "Grp", "Root Meaning", "Family"])
 	root_families_df.sort_values(["Pāli Root", "Grp", "Root Meaning", "Family"], ascending = (True, True, True, True), inplace=True)
@@ -133,24 +132,21 @@ def generate_root_subfamily_html():
 		subfamily_df_length = subfamily_df.shape[0]
 
 		html_string = ""
-		html_string += """<tbody>"""
 			
 		for row_sf in range(subfamily_df_length):
 			sf_pali = subfamily_df.iloc[row_sf, 0]
 			sf_pos = subfamily_df.iloc[row_sf, 1]
 			sf_english = subfamily_df.iloc[row_sf, 2]
 			sf_literal = subfamily_df.iloc[row_sf, 3]
-
-			html_string += f"<tr><th>{sf_pali}</th>"
-			html_string += f"<td>{sf_pos}</td>"
-			html_string += f"<td>{sf_english}"
 			
-			if sf_literal == "":
-				html_string +=  f"</td></tr>"
-			if sf_literal != "":
-				html_string += f"; lit. {sf_literal}</td></tr>"
+			html_string += f"""<b>{sf_pali}</b>&ensp;<span class="colour2">{sf_pos}</span>&ensp;{sf_english}"""
 
-		html_string += f"""</tbody>"""
+			if sf_literal == "":
+				html_string += f"<br>"
+			if sf_literal != "":
+				html_string += f"; lit. {sf_literal}<br>"
+
+		html_string += f"""</p>"""
 
 		with open(f"output/subfamily html/{root} {root_group} {root_meaning} {subfamily}.html", "w") as output_file:
 			output_file.write(html_string)
