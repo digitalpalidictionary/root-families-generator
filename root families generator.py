@@ -7,25 +7,10 @@ from datetime import date
 import warnings
 from datetime import datetime
 import os
-
-def timeis():
-	global blue
-	global yellow
-	global green
-	global red
-	global white
-
-	blue = "\033[38;5;33m" #blue
-	green = "\033[38;5;34m" #green
-	red= "\033[38;5;160m" #red
-	yellow = "\033[38;5;220m" #yellow
-	white = "\033[38;5;251m" #white
-	now = datetime.now()
-	current_time = now.strftime("%Y-%m-%d %H:%M:%S")
-	return (f"{blue}{current_time}{white}")
+from timeis import timeis, yellow, line, white, green, red, blue
 
 print(f"{timeis()} {yellow}root families generator")
-print(f"{timeis()} ----------------------------------------")
+print(f"{timeis()} {line}")
 
 today = date.today()
 date = today.strftime("%d")
