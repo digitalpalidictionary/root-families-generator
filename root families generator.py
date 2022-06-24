@@ -7,7 +7,7 @@ from datetime import date
 import warnings
 from datetime import datetime
 import os
-from timeis import timeis, yellow, line, white, green, red, blue
+from timeis import timeis, yellow, line, white, green, red, blue, tic, toc
 
 print(f"{timeis()} {yellow}root families generator")
 print(f"{timeis()} {line}")
@@ -124,7 +124,7 @@ def generate_root_subfamily_html():
 			sf_english = subfamily_df.iloc[row_sf, 2]
 			sf_literal = subfamily_df.iloc[row_sf, 3]
 			
-			html_string += f"""<b>{sf_pali}</b>&ensp;<span class="colour2">{sf_pos}</span>&ensp;{sf_english}"""
+			html_string += f"""<b>{sf_pali}</b>&ensp;<b>{sf_pos}</b>&ensp;{sf_english}"""
 
 			if sf_literal == "":
 				html_string += f"<br>"
@@ -415,7 +415,7 @@ def delete_unused_bases():
 			except:
 				print(f"{timeis()} {red}{file} not found")
 
-
+tic()
 setup_roots_df()
 setup_dpd_df()
 setup_root_families_df()
@@ -428,5 +428,4 @@ delete_unused_subfamily_files()
 delete_unused_root_info_files()
 delete_unused_root_family_csv_files()
 delete_unused_bases()
-
-print(f"{timeis()} ----------------------------------------")
+toc()
