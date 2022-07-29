@@ -1,11 +1,11 @@
 #!/usr/bin/env python3.10
 # coding: utf-8
 
+from rootmatrix import generate_root_matrix
 import pandas as pd
 import re
 from datetime import date
 import warnings
-from datetime import datetime
 import os
 from timeis import timeis, yellow, line, white, green, red, blue, tic, toc
 
@@ -51,9 +51,6 @@ def sort_key(word):
 def setup_roots_df():
 	print(f"{timeis()} {green}setting up roots dataframe") 
 
-	global roots_df
-	global roots_df_count
-
 	roots_df = pd.read_csv("../csvs/roots.csv", sep="\t", dtype=str)
 	roots_df.fillna("", inplace=True)
 
@@ -65,15 +62,35 @@ def setup_roots_df():
 
 	roots_df_count = roots_df.shape[0]
 
+	print(f"{timeis()} {green}setting up roots matrix checklist")
+
+	root_matrix_checklist = []
+
+	for row in range(roots_df_count):
+		root = roots_df.loc[row, 'Root']
+		group = roots_df.loc[row, 'Group']
+		meaning = roots_df.loc[row, 'Meaning']
+		matrix = roots_df.loc[row, 'matrix test']
+		root_info = f"{root} {group} {meaning}"
+		
+		if matrix == "√": 
+			root_matrix_checklist.append(root_info)
+	
+	# print(root_matrix_checklist)
+
+	return roots_df, roots_df_count, root_matrix_checklist
+
 
 def setup_dpd_df():
 	print(f"{timeis()} {green}setting up dpd dataframe") 
 
 	global dpd_df
+	global dpd_df2
 
 	dpd_df = pd.read_csv("../csvs/dpd-full.csv", sep="\t", dtype=str)
 	dpd_df.fillna("", inplace=True)
-	dpd_df.loc[dpd_df["Meaning IN CONTEXT"] == "", "Meaning IN CONTEXT"] = dpd_df["Buddhadatta"] + "*"
+	dpd_df2 = dpd_df.copy()
+	dpd_df.loc[dpd_df["Meaning IN CONTEXT"] == "", "Meaning IN CONTEXT"] = dpd_df["Buddhadatta"] + " <span class='colour'>†</span>"
 
 def setup_root_families_df():
 	print(f"{timeis()} {green}setting up root families dataframe") 
@@ -124,7 +141,7 @@ def generate_root_subfamily_html():
 			sf_english = subfamily_df.iloc[row_sf, 2]
 			sf_literal = subfamily_df.iloc[row_sf, 3]
 			
-			html_string += f"""<b>{sf_pali}</b>&ensp;<b>{sf_pos}</b>&ensp;{sf_english}"""
+			html_string += f"""<b>{sf_pali}</b>&ensp;<b2>{sf_pos}</b2>&ensp;{sf_english}"""
 
 			if sf_literal == "":
 				html_string += f"<br>"
@@ -415,17 +432,19 @@ def delete_unused_bases():
 			except:
 				print(f"{timeis()} {red}{file} not found")
 
+
 tic()
-setup_roots_df()
+roots_df, roots_df_count, root_matrix_checklist = setup_roots_df()
 setup_dpd_df()
-setup_root_families_df()
-generate_root_subfamily_html()
-extract_bases()
-generate_root_families_csvs()
-generate_root_info_html()
-generate_root_families_csv_for_anki()
-delete_unused_subfamily_files()
-delete_unused_root_info_files()
-delete_unused_root_family_csv_files()
-delete_unused_bases()
+# setup_root_families_df()
+# generate_root_subfamily_html()
+# extract_bases()
+# generate_root_families_csvs()
+# generate_root_info_html()
+# generate_root_families_csv_for_anki()
+# delete_unused_subfamily_files()
+# delete_unused_root_info_files()
+# delete_unused_root_family_csv_files()
+# delete_unused_bases()
+generate_root_matrix(dpd_df2, date, root_matrix_checklist)
 toc()

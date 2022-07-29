@@ -6,3 +6,4 @@ errorlog.txt
 output/
 ipynb/
 
+__pycache__/rootmatrix.cpython-310.pyc

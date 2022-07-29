@@ -1,0 +1,36 @@
+table.root_table2 {
+	width: 99%;
+}
+
+table.root_table2 th,
+table.root_table2 td {
+	border-radius: 5px;
+	margin: 3px 5px;
+	vertical-align: top;
+	padding: 2px 5px;
+	overflow: auto;
+}
+
+table.root_table2 th {
+	border: 1px solid #AB3C00;
+	color: #F95700;
+	font-weight: 700;
+	text-align: center;
+	white-space: nowrap;
+}
+
+table.root_table2 td {
+	border: 1px solid gray;
+	text-align: left;
+}
+
+table.root_table2 td b {
+	color: #AB3C00;
+	font-weight: 700;
+	white-space: nowrap;
+}
+
+span.colour {
+	color: #AB3C00;
+	font-weight: 700;
+}
