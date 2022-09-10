@@ -35,7 +35,7 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						'pr desid':[],
 						'pr intens':[],
 						'pr deno':[],
-						'pr ✻':[],
+						'pr ●':[],
 
 						'imp': [],
 						'imp caus': [],
@@ -44,7 +44,7 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						'imp desid': [],
 						'imp intens': [],
 						'imp deno': [],
-						'imp ✻': [],
+						'imp ●': [],
 
 						'opt':[],
 						'opt caus': [],
@@ -53,7 +53,7 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						'opt desid':[],
 						'opt intens':[],
 						'opt deno':[],
-						'opt ✻': [],
+						'opt ●': [],
 
 						'perf':[],
 						'perf caus': [],
@@ -62,7 +62,7 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						'perf desid': [],
 						'perf intens': [],
 						'perf deno': [],
-						'perf ✻': [],
+						'perf ●': [],
 
 						'imperf':[],
 						'imperf caus': [],
@@ -71,7 +71,7 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						'imperf desid': [],
 						'imperf intens': [],
 						'imperf deno': [],
-						'imperf ✻': [],
+						'imperf ●': [],
 
 						'aor': [],
 						'aor caus': [],
@@ -80,7 +80,7 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						'aor desid': [],
 						'aor intens': [],
 						'aor deno': [],
-						'aor ✻': [],
+						'aor ●': [],
 
 						'fut':[],
 						'fut caus': [],
@@ -89,7 +89,7 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						'fut desid': [],
 						'fut intens': [],
 						'fut deno': [],
-						'fut ✻': [],
+						'fut ●': [],
 
 						'cond': [],
 						'cond caus': [],
@@ -98,7 +98,7 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						'cond desid': [],
 						'cond intens': [],
 						'cond deno': [],
-						'cond ✻': [],
+						'cond ●': [],
 
 						'abs': [],
 						'abs caus': [],
@@ -107,7 +107,7 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						'abs desid': [],
 						'abs intens': [],
 						'abs deno': [],
-						'abs ✻': [],
+						'abs ●': [],
 
 						'ger': [],
 						'ger caus': [],
@@ -116,7 +116,7 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						'ger desid': [],
 						'ger intens': [],
 						'ger deno': [],
-						'ger ✻': [],
+						'ger ●': [],
 
 						'inf': [],
 						'inf caus': [],
@@ -125,7 +125,7 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						'inf desid': [],
 						'inf intens': [],
 						'inf deno': [],
-						'inf ✻': [],
+						'inf ●': [],
 					},
 					
 					'participles':{
@@ -136,7 +136,7 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						'prp desid': [],
 						'prp intens': [],
 						'prp deno': [],
-						'prp ✻': [],
+						'prp ●': [],
 
 						'pp':[],
 						'pp caus': [],
@@ -145,10 +145,10 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						'pp desid': [],
 						'pp intens': [],
 						'pp deno': [],
-						'pp ✻': [],
+						'pp ●': [],
 
 						'app': [],
-						'app ✻': [],
+						'app ●': [],
 
 						'ptp':[],
 						'ptp caus': [],
@@ -157,7 +157,7 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						'ptp desid': [],
 						'ptp intens': [],
 						'ptp deno': [],
-						'ptp ✻': [],
+						'ptp ●': [],
 
 					},
 
@@ -169,7 +169,7 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						'masc desid': [],
 						'masc intens': [],
 						'masc deno': [],
-						'masc ✻': [],
+						'masc ●': [],
 
 						'fem':[],
 						'fem caus': [],
@@ -178,7 +178,7 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						'fem desid': [],
 						'fem intens': [],
 						'fem deno': [],
-						'fem ✻': [],
+						'fem ●': [],
 
 						'nt': [],
 						'nt caus': [],
@@ -187,7 +187,7 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						'nt desid': [],
 						'nt intens': [],
 						'nt deno': [],
-						'nt ✻': [],
+						'nt ●': [],
 						},
 					
 					'adjectives':{
@@ -198,7 +198,7 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						'adj desid': [],
 						'adj intens': [],
 						'adj deno': [],
-						'adj ✻': [],
+						'adj ●': [],
 					},
 
 					'adverbs': {
@@ -209,7 +209,7 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 					'ind desid': [],
                     'ind intens': [],
 					'ind deno': [],
-					'ind ✻': [],
+					'ind ●': [],
 					}
 				}
 			
@@ -1166,87 +1166,87 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 			elif meaning == "":
 
 				if pos == 'pr':
-					rootmx[root_family]['verbs']['pr ✻'] += [headword]
+					rootmx[root_family]['verbs']['pr ●'] += [headword]
 					counter += 1
 
 				elif pos == 'imp':
-					rootmx[root_family]['verbs']['imp ✻'] += [headword]
+					rootmx[root_family]['verbs']['imp ●'] += [headword]
 					counter += 1
 
 				elif pos == 'opt':
-					rootmx[root_family]['verbs']['opt ✻'] += [headword]
+					rootmx[root_family]['verbs']['opt ●'] += [headword]
 					counter += 1
 
 				elif pos == 'perf':
-					rootmx[root_family]['verbs']['perf ✻'] += [headword]
+					rootmx[root_family]['verbs']['perf ●'] += [headword]
 					counter += 1
 
 				elif pos == 'imperf':
-					rootmx[root_family]['verbs']['imperf ✻'] += [headword]
+					rootmx[root_family]['verbs']['imperf ●'] += [headword]
 					counter += 1
 
 				elif pos == 'aor':
-					rootmx[root_family]['verbs']['aor ✻'] += [headword]
+					rootmx[root_family]['verbs']['aor ●'] += [headword]
 					counter += 1
 
 				elif pos == 'fut':
-					rootmx[root_family]['verbs']['fut ✻'] += [headword]
+					rootmx[root_family]['verbs']['fut ●'] += [headword]
 					counter += 1
 
 				elif pos == 'cond':
-					rootmx[root_family]['verbs']['cond ✻'] += [headword]
+					rootmx[root_family]['verbs']['cond ●'] += [headword]
 					counter += 1
 
 				elif pos == 'abs':
-					rootmx[root_family]['verbs']['abs ✻'] += [headword]
+					rootmx[root_family]['verbs']['abs ●'] += [headword]
 					counter += 1
 
 				elif pos == 'ger':
-					rootmx[root_family]['verbs']['ger ✻'] += [headword]
+					rootmx[root_family]['verbs']['ger ●'] += [headword]
 					counter += 1
 
 				elif pos == 'inf':
-					rootmx[root_family]['verbs']['inf ✻'] += [headword]
+					rootmx[root_family]['verbs']['inf ●'] += [headword]
 					counter += 1
 
 				elif pos == 'prp':
-					rootmx[root_family]['participles']['prp ✻'] += [headword]
+					rootmx[root_family]['participles']['prp ●'] += [headword]
 					counter += 1
 
 				elif pos == 'pp':
-					rootmx[root_family]['participles']['pp ✻'] += [headword]
+					rootmx[root_family]['participles']['pp ●'] += [headword]
 					counter += 1
 
 				elif re.findall(r"\bapp\b", grammar):
-					rootmx[root_family]['participles']['app ✻'] += [headword]
+					rootmx[root_family]['participles']['app ●'] += [headword]
 					counter += 1
 
 				elif pos == 'ptp':
-					rootmx[root_family]['participles']['ptp ✻'] += [headword]
+					rootmx[root_family]['participles']['ptp ●'] += [headword]
 					counter += 1
 
 				elif pos == 'adj' and re.findall("ptp", grammar):
-					rootmx[root_family]['participles']['ptp ✻'] += [headword]
+					rootmx[root_family]['participles']['ptp ●'] += [headword]
 					counter += 1				
 
 				elif pos == 'masc':
-					rootmx[root_family]['nouns']['masc ✻'] += [headword]
+					rootmx[root_family]['nouns']['masc ●'] += [headword]
 					counter += 1
 
 				elif pos == 'fem':
-					rootmx[root_family]['nouns']['fem ✻'] += [headword]
+					rootmx[root_family]['nouns']['fem ●'] += [headword]
 					counter += 1
 
 				elif pos == 'nt':
-					rootmx[root_family]['nouns']['nt ✻'] += [headword]
+					rootmx[root_family]['nouns']['nt ●'] += [headword]
 					counter += 1
 
 				elif pos == 'adj':
-					rootmx[root_family]['adjectives']['adj ✻'] += [headword]
+					rootmx[root_family]['adjectives']['adj ●'] += [headword]
 					counter += 1
 
 				elif pos == 'ind':
-					rootmx[root_family]['adverbs']['ind ✻'] += [headword]
+					rootmx[root_family]['adverbs']['ind ●'] += [headword]
 					counter += 1
 				
 				else:
@@ -1270,12 +1270,6 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 
 		# html = f"<style>{css}</style>"
 		html += f"<table class='root_table2'>"
-
-		vcount = 0
-		pcount = 0
-		ncount = 0
-		adjcount = 0
-		advcount = 0
 		total_count = 0
 
 		for category, data2 in data1.items():
@@ -1283,17 +1277,6 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 			for pos, words  in data2.items():
 				total_count += len(words)
 				if words != []:
-
-					if category == "verbs":
-						vcount += 1
-					if category == "participles":
-						pcount += 1
-					if category == "nouns":
-						ncount += 1
-					if category == "adjectives":
-						adjcount += 1
-					if category == "adverbs":
-						advcount += 1
 
 					if cflag == True:
 						# html += f"<tr><th rowspan='1'>{category}</th><th>{pos}</th><td>"
@@ -1311,27 +1294,20 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 							html += f"{word}</td></tr>"
 
 		html += f"<th colspan='2'>"
-		if re.findall("✻", html):
-			html += f"✻"
+		if re.findall("●", html):
+			html += f"●"
 		else:
 			html += f"√"
 		html += f"</th></tr></table>"
 		html += f"{total_count}"
-
-		# adjust rowspan
-		
-		# html = re.sub(r"<th rowspan='1'><b>verbs", f"<th rowspan='{vcount}'><b>verbs", html)
-		# html = re.sub(r"<th rowspan='1'><b>participles", f"<th rowspan='{pcount}'><b>participles", html)
-		# html = re.sub(r"<th rowspan='1'><b>nouns", f"<th rowspan='{ncount}'><b>nouns", html)
-		# html = re.sub(r"<th rowspan='1'><b>adjectives", f"<th rowspan='{adjcount}'><b>adjectives", html)
-		# html = re.sub(r"<th rowspan='1'><b>adverbs", f"<th rowspan='{advcount}'><b>adverbs", html)
+		html = re.sub("●", "<span class='g3'>●</span>", html)
 
 		# write html files
 
 		with open(f"output/matrix/{root_name}.html", "w") as words:
 			words.write(html)
 		
-		if not re.findall("✻", html):
+		if not re.findall("●", html):
 			anki_dict[root_name] = html
 		
 	# make csv for anki

@@ -8,6 +8,8 @@ from datetime import date
 import warnings
 import os
 from timeis import timeis, yellow, line, white, green, red, blue, tic, toc
+from sorter import sort_key
+from delete_unused_files import del_unused_files
 
 print(f"{timeis()} {yellow}root families generator")
 print(f"{timeis()} {line}")
@@ -16,37 +18,6 @@ today = date.today()
 date = today.strftime("%d")
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
-
-def sort_key(word):
-
-    pāli_alphabet = [
-        "√", "a", "ā", "i", "ī", "u", "ū", "e", "o", "k", "kh", "g", "gh", "ṅ",
-        "c", "ch", "j", "jh", "ñ", "ṭ", "ṭh", "ḍ", "ḍḥ", "ṇ", "t", "th", "d",
-        "dh", "n", "p", "ph", "b", "bh", "m", "y", "r", "l", "s", "v", "h",
-        "ḷ", "ṃ", " ", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"
-	]
-
-    #comp iteration condition
-    dl = [i for i in pāli_alphabet if len(i) > 1]
-
-    for i in dl:
-        word = word.replace(i, '/{}'.format(i))
-
-    wordVe = []
-
-    k = -3
-
-    for j in range(len(word)):
-        if word[j] == '/':
-            k = j
-            wordVe.append(word[j + 1:j + 3])
-        if j > k + 2:
-            wordVe.append(word[j])
-
-    word = wordVe
-
-    pāli_alphabet_string = '-'.join(pāli_alphabet)
-    return [pāli_alphabet_string.find('-' + x + '-') for x in wordVe]
 
 def setup_roots_df():
 	print(f"{timeis()} {green}setting up roots dataframe") 
@@ -67,6 +38,7 @@ def setup_roots_df():
 	root_matrix_checklist = []
 
 	for row in range(roots_df_count):
+		count = roots_df.loc[row, 'Count']
 		root = roots_df.loc[row, 'Root']
 		group = roots_df.loc[row, 'Group']
 		meaning = roots_df.loc[row, 'Meaning']
@@ -90,7 +62,27 @@ def setup_dpd_df():
 	dpd_df = pd.read_csv("../csvs/dpd-full.csv", sep="\t", dtype=str)
 	dpd_df.fillna("", inplace=True)
 	dpd_df2 = dpd_df.copy()
-	dpd_df.loc[dpd_df["Meaning IN CONTEXT"] == "", "Meaning IN CONTEXT"] = dpd_df["Buddhadatta"] + " <span class='colour'>✻</span>"
+
+	for row in range (len(dpd_df)):
+		root = dpd_df.loc[row, "Pāli Root"]
+		meaning = dpd_df.loc[row, "Meaning IN CONTEXT"]
+		literal = dpd_df.loc[row, "Literal Meaning"]
+		source = dpd_df.loc[row, "Source1"]
+		buddhadatta = dpd_df.loc[row, "Buddhadatta"]
+
+		# add literal meaning
+		if meaning != "" and literal != "":
+			meaning += f"; lit. {literal}"
+		
+		# add word information degree of completion
+		if meaning != "" and source != "":
+			meaning += " <span class='g1'>●</span>"
+		elif meaning != "" and source == "":
+			meaning += " <span class='g2'>●</span>"
+		elif meaning == "":
+			meaning = buddhadatta + " <span class='g3'>●</span>"
+		dpd_df.loc[row, "Meaning IN CONTEXT"] = meaning
+
 
 def setup_root_families_df():
 	print(f"{timeis()} {green}setting up root families dataframe") 
@@ -130,7 +122,7 @@ def generate_root_subfamily_html():
 		test3 = dpd_df["Root Meaning"] == root_meaning
 		test4 = dpd_df["Family"] == subfamily
 		filter = test1 & test2 & test3 & test4
-		subfamily_df = dpd_df.loc[filter, ["Pāli1", "POS", "Meaning IN CONTEXT", "Literal Meaning"]]
+		subfamily_df = dpd_df.loc[filter, ["Pāli1", "POS", "Meaning IN CONTEXT"]]
 		subfamily_df_length = subfamily_df.shape[0]
 
 		html_string = """<table class="table1"><tbody>"""
@@ -139,71 +131,60 @@ def generate_root_subfamily_html():
 			sf_pali = subfamily_df.iloc[row_sf, 0]
 			sf_pos = subfamily_df.iloc[row_sf, 1]
 			sf_english = subfamily_df.iloc[row_sf, 2]
-			sf_literal = subfamily_df.iloc[row_sf, 3]
 
 			html_string += f"<tr><th>{sf_pali}</th>"
-			html_string += f"<td><b>{sf_pos}<b></td>"
-			html_string += f"<td>{sf_english}"
-
-			if sf_literal == "" or re.findall("✻", sf_english):
-				html_string += f"</td></tr>"
-			elif sf_literal != "":
-				html_string += f"; lit. {sf_literal}</td></tr>"
+			html_string += f"<td><b>{sf_pos}</b></td>"
+			html_string += f"<td>{sf_english}</td></tr>"
 
 		html_string += f"""</tbody></table>"""
-			
-		# 	html_string += f"""<b>{sf_pali}</b>&ensp;<b2>{sf_pos}</b2>&ensp;{sf_english}"""
-		# 	if sf_literal == "":
-		# 		html_string += f"<br>"
-		# 	if sf_literal != "":
-		# 		html_string += f"; lit. {sf_literal}<br>"
-		# html_string += f"""</p>"""
-
-		with open(f"output/subfamily html/{root} {root_group} {root_meaning} {subfamily}.html", "w") as output_file:
-			output_file.write(html_string)
-		subfamily_string = root + " " + root_group + " " + root_meaning + " " + subfamily + ".html"
+		html_string += f"{subfamily_df_length}"
+		
+		try:
+			with open(f"output/subfamily html/{root} {root_group} {root_meaning} {subfamily}.html", "w") as output_file:
+				output_file.write(html_string)
+		except:
+			print(f"{timeis()} {red}error writing 'output/subfamily html/{root} {root_group} {root_meaning} {subfamily}.html'")
+		
+		subfamily_string = f"{root} {root_group} {root_meaning} {subfamily}"	
 		subfamily_list.append(subfamily_string)
 		
 
 def extract_bases():
-
 	print(f"{timeis()} {green}extracting bases")
-	global bases_list
-	bases_df = dpd_df
-	bases_list = []
+	
+	bases_dict = {}
 
-	for row in range(roots_df_count):
-		root = roots_df.iloc[row, 2]
-		root_group = roots_df.iloc[row, 5]
-		root_meaning = roots_df.iloc[row, 8]
+	for row in range(len(dpd_df)):
+		root = dpd_df.loc[row, "Pāli Root"]
+		root_group = dpd_df.loc[row, "Grp"]
+		root_meaning = dpd_df.loc[row, "Root Meaning"]
+		base = dpd_df.loc[row, "Base"]
+		base = re.sub("^.+ > ", "", base)
+		root_fam = f"{root} {root_group} {root_meaning}"
 
-		test1 = bases_df["Pāli Root"] == root
-		test2 = bases_df["Grp"] == root_group
-		test3 = bases_df["Root Meaning"] == root_meaning
-		test4 = bases_df["Base"].str.contains(fr">")
-		filter = test1 & test2 & test3 & test4
-		bases_filtered = bases_df.loc[filter, ["Base"]]
+		if root != "":
+			if root_fam not in bases_dict:
+				bases_dict[root_fam] = {base}
+			else:
+				bases_dict[root_fam].add(base)
+	
+	for root_fam, bases in bases_dict.items():
+		bases.discard("")
+		bases = sorted(bases, key=lambda x: len(x))
 
-		bases_filtered = bases_filtered.dropna()
-		bases_filtered = bases_filtered.sort_values(by="Base", key=lambda x: x.str.len())
-		bases_filtered = bases_filtered["Base"].str.replace("^.+ > ", "")
-		bases_filtered.drop_duplicates(inplace=True, keep="first")
-		
-		bases_filtered_size = bases_filtered.shape[0]
+		if len(bases) == 0:
+			bases_dict[root_fam] = "-"
+		else:
+			bases_string = ""
+			for base in bases:
+				if base != bases[-1]:
+					bases_string += f"{base}, "
+				else:
+					bases_string += f"{base}"
+			
+			bases_dict[root_fam] = bases_string
 
-		if row % 100 == 0:
-			print(f"{timeis()} {row}/{roots_df_count}\t{root} {root_group} {root_meaning}")
-
-		with open(f"output/bases/{root} {root_group} {root_meaning}.csv", "w") as output_file:
-			bases_filtered_size = bases_filtered.shape[0]
-
-			if bases_filtered_size == 0:
-				output_file.write(f"-")
-			if bases_filtered_size > 0:
-				bases_filtered.to_csv(output_file, header=False, index=False, sep="\t")
-
-		bases_string = root + " " + root_group + " " + root_meaning + ".csv"
-		bases_list.append(bases_string)
+	return bases_dict
 
 
 def generate_root_families_csvs():
@@ -229,7 +210,7 @@ def generate_root_families_csvs():
 
 		with open(f"output/families/{root} {root_group} {root_meaning}.csv", "w") as output_file:
 			root_families_filtered.to_csv(output_file, header=False, index=False, sep="\t")
-		root_family_csv_string = root + " " + root_group + " " + root_meaning + ".csv"
+		root_family_csv_string = root + " " + root_group + " " + root_meaning
 		root_family_csv_list.append(root_family_csv_string)
 
 def generate_root_info_html():
@@ -245,12 +226,8 @@ def generate_root_info_html():
 		root_group = roots_df.iloc[row, 5]
 		root_sign = roots_df.iloc[row, 6]
 		root_meaning = roots_df.iloc[row, 8]
-
-		base_file = open(f"output/bases/{root} {root_group} {root_meaning}.csv")
-		base = base_file.read()
-		base_file.close()
-		base = re.sub("\n", ", ", base)
-		base = re.sub(", $", "", base)
+		root_fam = f"{root} {root_group} {root_meaning}"
+		base = bases_dict[root_fam]
 
 		sk_root = roots_df.iloc[row, 9]
 		sk_root_meaning = roots_df.iloc[row, 10]
@@ -292,7 +269,10 @@ def generate_root_info_html():
 		html_string = ""
 		html_string += f"""<tbody>"""
 		html_string += f"""<tr><th>Pāḷi Root:</th><td>{root}<sup>{root_has_verb}</sup>{root_group} {root_group_pali} +{root_sign} ({root_meaning})</td></tr>"""
-		html_string += f"""<tr><th>Base(s):</th><td>{base}</td></tr>"""
+		if re.findall(",", base):
+			html_string += f"""<tr><th>Bases:</th><td>{base}</td></tr>"""
+		else:
+			html_string += f"""<tr><th>Base:</th><td>{base}</td></tr>"""
 
 		# Root in comps
 		if root_in_comps != "":
@@ -331,7 +311,7 @@ def generate_root_info_html():
 
 		with open(f"output/root info/{root} {root_group} {root_meaning}.html", "w") as output_file:
 			output_file.write(html_string)
-		root_families_string = root + " " + root_group + " " + root_meaning + ".html"
+		root_families_string = f"{root} {root_group} {root_meaning}"
 		root_families_list.append(root_families_string)
 
 def generate_root_families_csv_for_anki():
@@ -339,7 +319,6 @@ def generate_root_families_csv_for_anki():
 	print(f"{timeis()} {green}generating root families csv for anki")
 
 	#combine meaning and buddhadatta columns
-    
 	anki_df = dpd_df
 	anki_df["Buddhadatta"] = anki_df["Buddhadatta"].str.replace("(.+)", "<div style='color: #AA4400'>\\1<div>")
 	anki_df.loc[anki_df["Meaning IN CONTEXT"].isnull(), "Meaning IN CONTEXT"] = anki_df["Buddhadatta"]
@@ -364,7 +343,7 @@ def generate_root_families_csv_for_anki():
 		test4 = anki_df["Root Meaning"] == (root_meaning)
 		test5 = anki_df["Family"] == (root_family)
 		filter = test1 & test2 & test3 & test4 & test5
-		filtered_df = anki_df.loc[filter, ["Pāli1", "POS", "Meaning IN CONTEXT", "Literal Meaning", "Construction"]]
+		filtered_df = anki_df.loc[filter, ["Pāli1", "POS", "Meaning IN CONTEXT", "Construction"]] 
 
 		csv_file = open ("output/root families.csv", 'a', encoding= "'utf-8")
 		anki_file = open("../csvs for anki/root families.csv", 'a')
@@ -375,15 +354,11 @@ def generate_root_families_csv_for_anki():
 			pāli = filtered_df.iloc[row, 0]
 			pos = filtered_df.iloc[row, 1]
 			meaning = filtered_df.iloc[row, 2]
-			literal = filtered_df.iloc[row, 3]
-			construction = filtered_df.iloc[row, 4]
+			construction = filtered_df.iloc[row, 3]
 			construction = re.sub(f"<br/>.+",  "", construction) #remove 2nd line
 			anki_file.write(f"<tr valign='top'><div style='color: #FFB380'><td>{pāli}</td><td><div style='color: #FF6600'>{pos}</div></td><td><div style='color: #FFB380'>{meaning}</td><td><div style='color: #AA4400'>{construction}</div></td></tr>")
 			csv_file.write(f"{root_family}\t{root_group}\t{root_meaning}\t{pāli}\t{pos}\t{meaning}")
-			if literal == "":
-				csv_file.write(f"\t{construction}\n")
-			elif literal != "":
-				csv_file.write(f"; lit. {literal}\t{construction}\n")
+			csv_file.write(f"\t{construction}\n")
 
 		anki_file.write(f"</tbody></table>")
 		anki_file.write(f"\t{date}")
@@ -394,52 +369,33 @@ def generate_root_families_csv_for_anki():
 	csv_file.close()
 
 def delete_unused_subfamily_files():
-	print(f"{timeis()} {green}deleting unused subfamily files")
-	
-	for root, dirs, files in os.walk("output/subfamily html/", topdown=True):
-		for file in files:
-			try:
-				if file not in subfamily_list:
-					os.remove(f"output/subfamily html/{file}")
-					print(f"{timeis()} {file}")
-			except:
-				print(f"{timeis()} {red}{file} not found")
+
+	file_dir = "output/subfamily html/"
+	file_ext = ".html"
+	del_unused_files(subfamily_list, file_dir, file_ext)
+
 
 def delete_unused_root_info_files():
-	print(f"{timeis()} {green}deleting unused root info files")
 	
-	for root, dirs, files in os.walk("output/root info/", topdown=True):
-		for file in files:
-			try:
-				if file not in root_families_list:
-					os.remove(f"output/root info/{file}")
-					print(f"{timeis()} {file}")
-			except:
-				print(f"{timeis()} {red}{file} not found")
+	file_dir = "output/root info/"
+	file_ext = ".html"
+	del_unused_files(root_families_list, file_dir, file_ext)
+
 
 def delete_unused_root_family_csv_files():
-	print(f"{timeis()} {green}deleting unused root family csv files")
 	
-	for root, dirs, files in os.walk("output/families/", topdown=True):
-		for file in files:
-			try:
-				if file not in root_family_csv_list:
-					os.remove(f"output/families/{file}")
-					print(f"{timeis()} {file}")
-			except:
-				print(f"{timeis()} {red}{file} not found")
+	file_dir = "output/families/"
+	file_ext = ".csv"
+	del_unused_files(root_family_csv_list, file_dir, file_ext)
 
-def delete_unused_bases():
-	print(f"{timeis()} {green}deleting unused bases")
-	
-	for root, dirs, files in os.walk("output/bases/", topdown=True):
-		for file in files:
-			try:
-				if file not in bases_list:
-					os.remove(f"output/bases/{file}")
-					print(f"{timeis()} {file}")
-			except:
-				print(f"{timeis()} {red}{file} not found")
+
+def delete_unused_root_matrix_files():
+
+	file_dir = "output/matrix/"
+	file_ext = ".html"
+	del_unused_files(root_families_list, file_dir, file_ext)
+
+
 
 
 tic()
@@ -447,13 +403,13 @@ roots_df, roots_df_count, root_matrix_checklist = setup_roots_df()
 setup_dpd_df()
 setup_root_families_df()
 generate_root_subfamily_html()
-extract_bases()
+bases_dict = extract_bases()
 generate_root_families_csvs()
 generate_root_info_html()
 generate_root_families_csv_for_anki()
 delete_unused_subfamily_files()
 delete_unused_root_info_files()
 delete_unused_root_family_csv_files()
-delete_unused_bases()
 generate_root_matrix(dpd_df2, date, root_matrix_checklist)
+delete_unused_root_matrix_files()
 toc()
