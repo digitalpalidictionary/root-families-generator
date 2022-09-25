@@ -19,6 +19,7 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 		root_group = dpd_df2.loc[row, "Grp"]
 		root_meaning = dpd_df2.loc[row, "Root Meaning"]
 		base = dpd_df2.loc[row, "Base"]
+		pattern = dpd_df2.loc[row, "Pattern"]
 		root_family = f"{root} {root_group} {root_meaning}"
 		
 		if row % 10000 == 0:
@@ -1014,6 +1015,11 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 					else:
 						rootmx[root_family]['nouns']['nt'] += [headword]
 						counter += 1
+				
+				# special case
+				elif headword == 'sogandhika 3':
+					rootmx[root_family]['nouns']['nt'] += [headword]
+					counter += 1
 
 
 				elif pos == 'adj':
