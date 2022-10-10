@@ -7,6 +7,8 @@ import re
 from datetime import date
 import warnings
 import os
+import json
+
 from timeis import timeis, yellow, line, white, green, red, blue, tic, toc
 from sorter import sort_key
 from delete_unused_files import del_unused_files
@@ -105,6 +107,7 @@ def generate_root_subfamily_html():
 	print(f"{timeis()} {green}generating html for each root subfamily")
 	global subfamily_list
 	subfamily_list = []
+	root_subfamiles_dict = {}
 
 	for row in range(root_families_df_count):
 
@@ -147,7 +150,15 @@ def generate_root_subfamily_html():
 		
 		subfamily_string = f"{root} {root_group} {root_meaning} {subfamily}"	
 		subfamily_list.append(subfamily_string)
-		
+
+		html_string_json = re.sub("table1", "root-families", html_string)
+		root_subfamiles_dict[subfamily_string] = html_string_json
+	
+	root_subfamiles_json = json.dumps(root_subfamiles_dict, ensure_ascii=False, indent=4)
+	with open ("../dpd-app/data/root-subfamilies.json", "w") as f:
+		f.write(root_subfamiles_json)
+
+
 
 def extract_bases():
 	print(f"{timeis()} {green}extracting bases")
