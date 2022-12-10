@@ -34,8 +34,11 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						'pr caus & pass': [],
 						'pr pass':[],
 						'pr desid':[],
+						'pr desid & caus': [],
 						'pr intens':[],
+						'pr intens & caus': [],
 						'pr deno':[],
+						'pr deno & caus': [],
 						'pr ●':[],
 
 						'imp': [],
@@ -43,8 +46,10 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						'imp caus & pass': [],
 						'imp pass': [],
 						'imp desid': [],
+						'imp desid & caus': [],
 						'imp intens': [],
 						'imp deno': [],
+						'imp deno & caus': [],
 						'imp ●': [],
 
 						'opt':[],
@@ -52,8 +57,10 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						'opt caus & pass': [],
 						'opt pass': [],
 						'opt desid':[],
+						'opt desid & caus': [],
 						'opt intens':[],
 						'opt deno':[],
+						'opt deno & caus': [],
 						'opt ●': [],
 
 						'perf':[],
@@ -61,8 +68,10 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						'perf caus & pass': [],
 						'perf pass': [],
 						'perf desid': [],
+						'perf desid & caus': [],
 						'perf intens': [],
 						'perf deno': [],
+						'perf deno & caus': [],
 						'perf ●': [],
 
 						'imperf':[],
@@ -70,8 +79,10 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						'imperf caus & pass': [],
 						'imperf pass': [],
 						'imperf desid': [],
+						'imperf desid & caus': [],
 						'imperf intens': [],
 						'imperf deno': [],
+						'imperf deno & caus': [],
 						'imperf ●': [],
 
 						'aor': [],
@@ -79,8 +90,10 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						'aor caus & pass': [],
 						'aor pass': [],
 						'aor desid': [],
+						'aor desid & caus': [],
 						'aor intens': [],
 						'aor deno': [],
+						'aor deno & caus': [],
 						'aor ●': [],
 
 						'fut':[],
@@ -88,8 +101,10 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						'fut caus & pass': [],
 						'fut pass': [],
 						'fut desid': [],
+						'fut desid & caus': [],
 						'fut intens': [],
 						'fut deno': [],
+						'fut deno & caus': [],
 						'fut ●': [],
 
 						'cond': [],
@@ -97,8 +112,10 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						'cond caus & pass': [],
 						'cond pass': [],
 						'cond desid': [],
+						'cond desid & caus': [],
 						'cond intens': [],
 						'cond deno': [],
+						'cond deno & caus': [],
 						'cond ●': [],
 
 						'abs': [],
@@ -106,8 +123,10 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						'abs caus & pass': [],
 						'abs pass': [],
 						'abs desid': [],
+						'abs desid & caus': [],
 						'abs intens': [],
 						'abs deno': [],
+						'abs deno & caus': [],
 						'abs ●': [],
 
 						'ger': [],
@@ -115,8 +134,10 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						'ger caus & pass': [],
 						'ger pass': [],
 						'ger desid': [],
+						'ger desid & caus': [],
 						'ger intens': [],
 						'ger deno': [],
+						'ger deno & caus': [],
 						'ger ●': [],
 
 						'inf': [],
@@ -124,8 +145,10 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						'inf caus & pass': [],
 						'inf pass': [],
 						'inf desid': [],
+						'inf desid & caus': [],
 						'inf intens': [],
 						'inf deno': [],
+						'inf deno & caus': [],
 						'inf ●': [],
 					},
 					
@@ -135,8 +158,11 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						'prp caus & pass': [],
 						'prp pass': [],
 						'prp desid': [],
+						'prp desid & caus': [],
+						'prp desid & pass': [],
 						'prp intens': [],
 						'prp deno': [],
+						'prp deno & caus': [],
 						'prp ●': [],
 
 						'pp':[],
@@ -144,8 +170,10 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						'pp caus & pass': [],
 						'pp pass': [],
 						'pp desid': [],
+						'pp desid & caus': [],
 						'pp intens': [],
 						'pp deno': [],
+						'pp deno & caus': [],
 						'pp ●': [],
 
 						'app': [],
@@ -156,8 +184,10 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						'ptp caus & pass': [],
 						'ptp pass': [],
 						'ptp desid': [],
+						'ptp desid & caus': [],
 						'ptp intens': [],
 						'ptp deno': [],
+						'ptp deno & caus': [],
 						'ptp ●': [],
 
 					},
@@ -168,8 +198,10 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						'masc caus & pass': [],
 						'masc pass': [],
 						'masc desid': [],
+						'masc desid & caus': [],
 						'masc intens': [],
 						'masc deno': [],
+						'masc deno & caus': [],
 						'masc ●': [],
 
 						'fem':[],
@@ -177,8 +209,10 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						'fem caus & pass': [],
 						'fem pass': [],
 						'fem desid': [],
+						'fem desid & caus': [],
 						'fem intens': [],
 						'fem deno': [],
+						'fem deno & caus': [],
 						'fem ●': [],
 
 						'nt': [],
@@ -186,8 +220,10 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						'nt caus & pass': [],
 						'nt pass': [],
 						'nt desid': [],
+						'nt desid & caus': [],
 						'nt intens': [],
 						'nt deno': [],
+						'nt deno & caus': [],
 						'nt ●': [],
 						},
 					
@@ -197,8 +233,10 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						'adj caus & pass': [],
 						'adj pass': [],
 						'adj desid': [],
+						'adj desid & caus': [],
 						'adj intens': [],
 						'adj deno': [],
+						'adj deno & caus': [],
 						'adj ●': [],
 					},
 
@@ -208,8 +246,10 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 					'ind caus & pass': [],
 					'ind pass': [],
 					'ind desid': [],
+					'ind desid & caus': [],
                     'ind intens': [],
 					'ind deno': [],
+					'ind deno & caus': [],
 					'ind ●': [],
 					}
 				}
@@ -219,9 +259,24 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 			root_family in root_matrix_checklist:
 
 				if pos == 'pr':
-					# first caus and pass
+					# first caus & pass
 					if (re.findall(r"\bcaus\b", base) and re.findall(r"\bpass\b", base)):
 						rootmx[root_family]['verbs']['pr caus & pass'] += [headword]
+						counter += 1
+					
+					# desid & caus 
+					elif (re.findall(r"\bcaus\b", base) and re.findall(r"\bdesid\b", base)):
+						rootmx[root_family]['verbs']['pr desid & caus'] += [headword]
+						counter += 1
+
+					# intens & caus
+					elif (re.findall(r"\bcaus\b", base) and re.findall(r"\bintens\b", base)):
+						rootmx[root_family]['verbs']['pr intens & caus'] += [headword]
+						counter += 1
+
+					# deno & caus
+					elif (re.findall(r"\bcaus\b", base) and re.findall(r"\bdeno\b", base)):
+						rootmx[root_family]['verbs']['pr deno & caus'] += [headword]
 						counter += 1
 					
 					# caus 
@@ -260,6 +315,11 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						rootmx[root_family]['verbs']['imp caus & pass'] += [headword]
 						counter += 1
 
+					# deno & caus
+					elif (re.findall(r"\bcaus\b", base) and re.findall(r"\bdeno\b", base)):
+						rootmx[root_family]['verbs']['imp deno & caus'] += [headword]
+						counter += 1
+
 					# caus
 					elif re.findall(r"\bcaus\b", base):
 						rootmx[root_family]['verbs']['imp caus'] += [headword]
@@ -294,6 +354,11 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 					# first caus and pass
 					if (re.findall(r"\bcaus\b", base) and re.findall(r"\bpass\b", base)):
 						rootmx[root_family]['verbs']['opt caus & pass'] += [headword]
+						counter += 1
+
+					# deno & caus
+					elif (re.findall(r"\bcaus\b", base) and re.findall(r"\bdeno\b", base)):
+						rootmx[root_family]['verbs']['opt deno & caus'] += [headword]
 						counter += 1
 
 					# caus
@@ -332,6 +397,11 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						rootmx[root_family]['verbs']['perf caus & pass'] += [headword]
 						counter += 1
 
+					# deno & caus
+					elif (re.findall(r"\bcaus\b", base) and re.findall(r"\bdeno\b", base)):
+						rootmx[root_family]['verbs']['perf deno & caus'] += [headword]
+						counter += 1
+
 					# caus
 					elif re.findall(r"\bcaus\b", base):
 						rootmx[root_family]['verbs']['perf caus'] += [headword]
@@ -366,6 +436,11 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 					# first caus and pass
 					if (re.findall(r"\bcaus\b", base) and re.findall(r"\bpass\b", base)):
 						rootmx[root_family]['verbs']['imperf caus & pass'] += [headword]
+						counter += 1
+
+					# deno & caus
+					elif (re.findall(r"\bcaus\b", base) and re.findall(r"\bdeno\b", base)):
+						rootmx[root_family]['verbs']['imperf deno & caus'] += [headword]
 						counter += 1
 
 					# caus
@@ -404,6 +479,11 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						rootmx[root_family]['verbs']['aor caus & pass'] += [headword]
 						counter += 1
 
+					# deno & caus
+					elif (re.findall(r"\bcaus\b", base) and re.findall(r"\bdeno\b", base)):
+						rootmx[root_family]['verbs']['aor deno & caus'] += [headword]
+						counter += 1
+
 					# caus
 					elif re.findall(r"\bcaus\b", base):
 						rootmx[root_family]['verbs']['aor caus'] += [headword]
@@ -438,6 +518,11 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 					# first caus and pass
 					if (re.findall(r"\bcaus\b", base) and re.findall(r"\bpass\b", base)):
 						rootmx[root_family]['verbs']['fut caus & pass'] += [headword]
+						counter += 1
+
+					# deno & caus
+					elif (re.findall(r"\bcaus\b", base) and re.findall(r"\bdeno\b", base)):
+						rootmx[root_family]['verbs']['aor deno & caus'] += [headword]
 						counter += 1
 
 					# caus
@@ -476,6 +561,11 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						rootmx[root_family]['verbs']['cond caus & pass'] += [headword]
 						counter += 1
 
+					# deno & caus
+					elif (re.findall(r"\bcaus\b", base) and re.findall(r"\bdeno\b", base)):
+						rootmx[root_family]['verbs']['cond deno & caus'] += [headword]
+						counter += 1
+
 					# caus
 					elif re.findall(r"\bcaus\b", base):
 						rootmx[root_family]['verbs']['cond caus'] += [headword]
@@ -510,6 +600,16 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 					# first caus and pass
 					if (re.findall(r"\bcaus\b", base) and re.findall(r"\bpass\b", base)):
 						rootmx[root_family]['verbs']['abs caus & pass'] += [headword]
+						counter += 1
+
+					# desid & caus
+					elif (re.findall(r"\bcaus\b", base) and re.findall(r"\bdesid\b", base)):
+						rootmx[root_family]['verbs']['abs desid & caus'] += [headword]
+						counter += 1
+
+					# deno & caus
+					elif (re.findall(r"\bcaus\b", base) and re.findall(r"\bdeno\b", base)):
+						rootmx[root_family]['verbs']['abs deno & caus'] += [headword]
 						counter += 1
 
 					# caus
@@ -548,6 +648,11 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						rootmx[root_family]['verbs']['ger caus & pass'] += [headword]
 						counter += 1
 
+					# deno & caus
+					elif (re.findall(r"\bcaus\b", base) and re.findall(r"\bdeno\b", base)):
+						rootmx[root_family]['verbs']['ger deno & caus'] += [headword]
+						counter += 1
+
 					# caus
 					elif re.findall(r"\bcaus\b", base):
 						rootmx[root_family]['verbs']['ger caus'] += [headword]
@@ -584,6 +689,11 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						rootmx[root_family]['verbs']['inf caus & pass'] += [headword]
 						counter += 1
 
+					# deno & caus
+					elif (re.findall(r"\bcaus\b", base) and re.findall(r"\bdeno\b", base)):
+						rootmx[root_family]['verbs']['inf deno & caus'] += [headword]
+						counter += 1
+
 					# caus
 					elif re.findall(r"\bcaus\b", base):
 						rootmx[root_family]['verbs']['inf caus'] += [headword]
@@ -618,6 +728,16 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 					# first caus and pass
 					if (re.findall(r"\bcaus\b", base) and re.findall(r"\bpass\b", base)):
 						rootmx[root_family]['participles']['prp caus & pass'] += [headword]
+						counter += 1
+					
+					# desid and pass
+					elif (re.findall(r"\bdesid\b", base) and re.findall(r"\bpass\b", base)):
+						rootmx[root_family]['participles']['prp desid & pass'] += [headword]
+						counter += 1
+
+					# deno & caus
+					elif (re.findall(r"\bcaus\b", base) and re.findall(r"\bdeno\b", base)):
+						rootmx[root_family]['participles']['prp deno & caus'] += [headword]
 						counter += 1
 
 					# caus
@@ -656,6 +776,11 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						rootmx[root_family]['participles']['prp caus & pass'] += [headword]
 						counter += 1
 
+					# deno & caus
+					elif (re.findall(r"\bcaus\b", base) and re.findall(r"\bdeno\b", base)):
+						rootmx[root_family]['participles']['prp deno & caus'] += [headword]
+						counter += 1
+
 					# caus
 					elif re.findall(r"\bcaus\b", base):
 						rootmx[root_family]['participles']['prp caus'] += [headword]
@@ -690,6 +815,11 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 					# first caus and pass
 					if (re.findall(r"\bcaus\b", base) and re.findall(r"\bpass\b", base)):
 						rootmx[root_family]['participles']['pp caus & pass'] += [headword]
+						counter += 1
+
+					# deno & caus
+					elif (re.findall(r"\bcaus\b", base) and re.findall(r"\bdeno\b", base)):
+						rootmx[root_family]['participles']['pp deno & caus'] += [headword]
 						counter += 1
 
 					# caus
@@ -727,6 +857,11 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 					# first caus and pass
 					if (re.findall(r"\bcaus\b", base) and re.findall(r"\bpass\b", base)):
 						rootmx[root_family]['participles']['pp caus & pass'] += [headword]
+						counter += 1
+
+					# deno & caus
+					elif (re.findall(r"\bcaus\b", base) and re.findall(r"\bdeno\b", base)):
+						rootmx[root_family]['participles']['pp deno & caus'] += [headword]
 						counter += 1
 
 					# caus
@@ -770,6 +905,11 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						rootmx[root_family]['participles']['ptp caus & pass'] += [headword]
 						counter += 1
 
+					# deno & caus
+					elif (re.findall(r"\bcaus\b", base) and re.findall(r"\bdeno\b", base)):
+						rootmx[root_family]['participles']['ptp deno & caus'] += [headword]
+						counter += 1
+
 					# caus
 					elif re.findall(r"\bcaus\b", base):
 						rootmx[root_family]['participles']['ptp caus'] += [headword]
@@ -804,6 +944,11 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 					# first caus and pass
 					if (re.findall(r"\bcaus\b", base) and re.findall(r"\bpass\b", base)):
 						rootmx[root_family]['participles']['ptp caus & pass'] += [headword]
+						counter += 1
+
+					# deno & caus
+					elif (re.findall(r"\bcaus\b", base) and re.findall(r"\bdeno\b", base)):
+						rootmx[root_family]['participles']['ptp deno & caus'] += [headword]
 						counter += 1
 
 					# caus
@@ -842,6 +987,11 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 						rootmx[root_family]['nouns']['masc caus & pass'] += [headword]
 						counter += 1
 
+					# deno & caus
+					elif (re.findall(r"\bcaus\b", base) and re.findall(r"\bdeno\b", base)):
+						rootmx[root_family]['nouns']['masc deno & caus'] += [headword]
+						counter += 1
+
 					# caus
 					elif re.findall(r"\bcaus\b", base):
 						rootmx[root_family]['nouns']['masc caus'] += [headword]
@@ -876,6 +1026,11 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 					# first caus and pass
 					if (re.findall(r"\bcaus\b", base) and re.findall(r"\bpass\b", base)):
 						rootmx[root_family]['nouns']['masc caus & pass'] += [headword]
+						counter += 1
+					
+					# deno & caus
+					elif (re.findall(r"\bcaus\b", base) and re.findall(r"\bdeno\b", base)):
+						rootmx[root_family]['nouns']['masc deno & caus'] += [headword]
 						counter += 1
 
 					# caus
@@ -913,6 +1068,11 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 					if (re.findall(r"\bcaus\b", base) and re.findall(r"\bpass\b", base)):
 						rootmx[root_family]['nouns']['fem caus & pass'] += [headword]
 						counter += 1
+					
+					# deno & caus
+					elif (re.findall(r"\bcaus\b", base) and re.findall(r"\bdeno\b", base)):
+						rootmx[root_family]['nouns']['fem deno & caus'] += [headword]
+						counter += 1
 
 					# caus
 					elif re.findall(r"\bcaus\b", base):
@@ -949,6 +1109,11 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 					if (re.findall(r"\bcaus\b", base) and re.findall(r"\bpass\b", base)):
 						rootmx[root_family]['nouns']['fem caus & pass'] += [headword]
 						counter += 1
+					
+					# deno & caus
+					elif (re.findall(r"\bcaus\b", base) and re.findall(r"\bdeno\b", base)):
+						rootmx[root_family]['nouns']['fem deno & caus'] += [headword]
+						counter += 1
 
 					# caus
 					elif re.findall(r"\bcaus\b", base):
@@ -984,6 +1149,11 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 					# first caus and pass
 					if (re.findall(r"\bcaus\b", base) and re.findall(r"\bpass\b", base)):
 						rootmx[root_family]['nouns']['nt caus & pass'] += [headword]
+						counter += 1
+					
+					# deno & caus
+					elif (re.findall(r"\bcaus\b", base) and re.findall(r"\bdeno\b", base)):
+						rootmx[root_family]['nouns']['nt deno & caus'] += [headword]
 						counter += 1
 
 					# caus
@@ -1027,6 +1197,11 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 					if (re.findall(r"\bcaus\b", base) and re.findall(r"\bpass\b", base)):
 						rootmx[root_family]['adjectives']['adj caus & pass'] += [headword]
 						counter += 1
+					
+					# deno & caus
+					elif (re.findall(r"\bcaus\b", base) and re.findall(r"\bdeno\b", base)):
+						rootmx[root_family]['adjectives']['adj deno & caus'] += [headword]
+						counter += 1
 
 					# caus
 					elif re.findall(r"\bcaus\b", base):
@@ -1062,6 +1237,11 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 					# first caus and pass
 					if (re.findall(r"\bcaus\b", base) and re.findall(r"\bpass\b", base)):
 						rootmx[root_family]['adjectives']['adj caus & pass'] += [headword]
+						counter += 1
+					
+					# deno & caus
+					elif (re.findall(r"\bcaus\b", base) and re.findall(r"\bdeno\b", base)):
+						rootmx[root_family]['adjectives']['adj deno & caus'] += [headword]
 						counter += 1
 
 					# caus
@@ -1099,6 +1279,11 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 					if (re.findall(r"\bcaus\b", base) and re.findall(r"\bpass\b", base)):
 						rootmx[root_family]['adverbs']['ind caus & pass'] += [headword]
 						counter += 1
+					
+					# deno & caus
+					elif (re.findall(r"\bcaus\b", base) and re.findall(r"\bdeno\b", base)):
+						rootmx[root_family]['adverbs']['ind deno & caus'] += [headword]
+						counter += 1
 
 					# caus
 					elif re.findall(r"\bcaus\b", base):
@@ -1134,6 +1319,11 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 					# first caus and pass
 					if (re.findall(r"\bcaus\b", base) and re.findall(r"\bpass\b", base)):
 						rootmx[root_family]['adverbs']['ind caus & pass'] += [headword]
+						counter += 1
+					
+					# deno & caus
+					elif (re.findall(r"\bcaus\b", base) and re.findall(r"\bdeno\b", base)):
+						rootmx[root_family]['adverbs']['ind deno & caus'] += [headword]
 						counter += 1
 
 					# caus

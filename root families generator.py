@@ -279,7 +279,7 @@ def generate_root_info_html():
 
 		html_string = ""
 		html_string += f"""<tbody>"""
-		html_string += f"""<tr><th>Pāḷi Root:</th><td>{root}<sup>{root_has_verb}</sup>{root_group} {root_group_pali} +{root_sign} ({root_meaning})</td></tr>"""
+		html_string += f"""<tr><th>Pāḷi Root:</th><td>{root}<sup>{root_has_verb}</sup>{root_group} {root_group_pali} + {root_sign} ({root_meaning})</td></tr>"""
 		if re.findall(",", base):
 			html_string += f"""<tr><th>Bases:</th><td>{base}</td></tr>"""
 		else:
