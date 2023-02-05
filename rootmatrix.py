@@ -1,8 +1,10 @@
-from os import times
-from timeis import green, red, timeis, white
+
 import re
 import pandas as pd
 
+from os import times
+from timeis import green, red, timeis, white
+from superscripter import superscripter
 
 def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 	print(f"{timeis()} {green}generating root matrix")
@@ -12,11 +14,12 @@ def generate_root_matrix(dpd_df2, date, root_matrix_checklist):
 
 	for row in range(len(dpd_df2)):
 		headword = dpd_df2.loc[row, "Pāli1"]
+		headword = superscripter(headword)
 		pos = dpd_df2.loc[row, "POS"]
 		grammar = dpd_df2.loc[row, "Grammar"]
 		meaning = dpd_df2.loc[row, "Meaning IN CONTEXT"]
 		root = dpd_df2.loc[row, "Pāli Root"]
-		root_clean = re.sub(" \\d*$", "", root)
+		root_clean = re.sub(" \\d.*$", "", root)
 		root_group = dpd_df2.loc[row, "Grp"]
 		root_meaning = dpd_df2.loc[row, "Root Meaning"]
 		base = dpd_df2.loc[row, "Base"]

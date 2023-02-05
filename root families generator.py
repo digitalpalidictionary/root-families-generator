@@ -13,6 +13,7 @@ from datetime import date
 from timeis import timeis, yellow, line, white, green, red, blue, tic, toc
 from sorter import sort_key
 from delete_unused_files import del_unused_files
+from superscripter import superscripter
 
 print(f"{timeis()} {yellow}root families generator")
 print(f"{timeis()} {line}")
@@ -127,6 +128,7 @@ def generate_root_subfamily_html():
 			
 		for row_sf in range(subfamily_df_length):
 			sf_pali = subfamily_df.iloc[row_sf, 0]
+			sf_pali = superscripter(sf_pali)
 			sf_pos = subfamily_df.iloc[row_sf, 1]
 			sf_english = subfamily_df.iloc[row_sf, 2]
 
